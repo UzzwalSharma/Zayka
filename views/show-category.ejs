@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/path/to/your/styles.css"> <!-- Update with correct path -->
+  <title>Recipes in <%= categoryName %></title>
+  <style>
+    /* Basic reset */
+    body, h1, h2, p {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Full height background */
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: url(img/i-like-food.svg);
+    }
+
+    /* Main container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin-top: 2rem;
+    }
+
+    .section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .recipe-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+    }
+
+    .recipe-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .recipe-card-content {
+      padding: 1rem;
+    }
+
+    .recipe-title {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .recipe-description {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .recipe-ingredients {
+      margin-top: 0.5rem;
+    }
+
+    .ingredient-tag {
+      display: inline-block;
+      background-color: #e0f7fa;
+      color: #00796b;
+      border-radius: 12px;
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      font-size: 0.875rem;
+    }
+   
+  </style>
+  <link rel="stylesheet" href="/output.css" />
+  <link rel="stylesheet" href="main.css" />
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="/animation.js"></script>
+</head>
+<body>
+  <div class="antialiased bg-gray-100 dark-mode:bg-gray-900">
+    <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+      <div x-data="{ open: false }"
+        class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div class="flex flex-row items-center justify-between p-4">
+          <a href="#" class="flex items-center">
+            <img src="https://res.cloudinary.com/dvmqxb8kd/image/upload/v1726023731/my-recipes-folder/jarnqyxqzl6pceu6etsr.jpg" alt="Zayka Logo" class="h-12 mr-2 rounded-md">
+            <span class="text-2xl font-bold text-gray-900 dark-mode:text-gray-100">Zayka : <p style="font-size: 20px; display: inline;">Cook.Savor.Repeat</p></span>
+          </a>
+          <button class="rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-teal-500"
+            @click="open = !open">
+            <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+              <path x-show="!open" fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                clip-rule="evenodd"></path>
+              <path x-show="open" fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+        <nav :class="{'flex': open, 'hidden': !open}"
+          class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+          <a class="px-4 py-2 mt-2 text-sm font-semibold transition-colors duration-200 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            href="/">Home</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold transition-colors duration-200 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            href="/submit">Submit</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold transition-colors duration-200 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            href="/about">About the Developer</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold transition-colors duration-200 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            href="\recipes">All recipes</a>
+
+          <!-- Search Bar -->
+          <div class="relative mt-2 md:mt-0 md:ml-4">
+            <input type="text" placeholder="Search..."
+              class="px-4 py-2 text-sm bg-gray-100 dark-mode:bg-gray-700 text-gray-900 dark-mode:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+          </div>
+
+          <div @click.away="open = false" class="relative">
+            <button @click="open = !open"
+              class="flex flex-row text-gray-900 bg-gray-200 items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500">
+              <span>More</span>
+              <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+                <path fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div x-show="open" x-transition:enter="transition ease-out duration-100"
+              x-transition:enter-start="transform opacity-0 scale-95"
+              x-transition:enter-end="transform opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75"
+              x-transition:leave-start="transform opacity-100 scale-100"
+              x-transition:leave-end="transform opacity-0 scale-95"
+              class="absolute right-0 w-full md:max-w-screen-sm md:w-screen mt-2 origin-top-right">
+              <div class="px-2 pt-2 pb-4 bg-white rounded-md shadow-lg dark-mode:bg-gray-700">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <a class="flex flex-row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    href="#">
+                    <div class="bg-teal-500 text-white p-3 rounded-lg">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6">
+                        <path d="M7 8h10M7 12h10m-7 4h7"></path>
+                      </svg>
+                    </div>
+                    <div class="ml-3">
+                    <a href="/coming-soon"> <p class="font-semibold">More Blog Posts</p> </a>
+                      <p class="text-sm">Explore recent articles on our blog</p>
+                    </div>
+                  </a>
+                  <a class="flex flex-row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    href="#">
+                    <div class="bg-teal-500 text-white p-3 rounded-lg">
+                      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6">
+                        <path d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                      </svg>
+                    </div>
+                    <a href="/coming-soon">    <div class="ml-3">
+                      <p class="font-semibold">Contact us</p>
+                     <p class="text-sm">Get in touch with our team</p>  
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </nav>
+        
+      </div>
+    
+   
+   
+  </div>
+</div>
+  <div class="container">
+    <h3 class="section-title">Recipes in <%= categoryName %>:</h3>
+    <div class="recipes-grid">
+      <% recipes.forEach(function(recipe) { %>
+        <div class="recipe-card">
+          <a href="/recipe/<%= recipe._id %>">
+            <img src="<%= recipe.image %>" alt="<%= recipe.name %> recipe">
+            <div class="recipe-card-content">
+              <h2 class="recipe-title"><%= recipe.name %></h2>
+              <p class="recipe-description"><%= recipe.description %></p>
+              <div class="recipe-ingredients">
+                <% recipe.ingredients.forEach(function(ingredient) { %>
+                  <span class="ingredient-tag">#<%= ingredient %></span>
+                <% }); %>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }); %>
+    </div>
+    
+  </div>
+  <p style="text-align: center; font-size:2rem; color: #555; padding: 20px 0;">
+    Made with <span style="color: red;">&#10084;&#65039;</span> by Ujjwal
+</p>
+</body>
+</html>

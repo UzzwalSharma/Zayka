@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= recipe.name %> - Recipe Details</title>
+   
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Merriweather', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+
+        /* Image Styling */
+        .image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            filter: brightness(1.1);
+        }
+
+        /* Adding a gradient border effect */
+        .image-wrapper::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, rgba(231, 76, 60, 0.5), rgba(46, 204, 113, 0.5));
+            z-index: -1;
+            filter: blur(15px);
+        }
+
+        /* Kitchen Visuals */
+        .kitchen-left, .kitchen-right {
+            position: absolute;
+            top: 100px;
+            width: 150px;
+            opacity: 0.6;
+        }
+
+        .kitchen-left {
+            left: -120px;
+        }
+
+        .kitchen-right {
+            right: -120px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: #e74c3c;
+            margin-top: 40px;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+
+        ul li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            background-color: #f1f1f1;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredients, .instructions {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions p {
+            line-height: 1.6;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold mb-6 text-center"><%= recipe.name %></h1>
+
+        <!-- Recipe Image with new styling -->
+        <div class="image-wrapper mb-6">
+            <img src="<%= recipe.image %>" alt="<%= recipe.name %> recipe">
+        </div>
+
+        <!-- Recipe Description -->
+        <p class="text-lg mb-4 text-center font-light"><%= recipe.description %></p>
+
+        <!-- Ingredients Section -->
+        <div class="ingredients mb-8">
+            <h2 class="text-2xl font-bold mb-4">Ingredients</h2>
+            <ul class="list-disc pl-6 mb-6">
+                <% recipe.ingredients.forEach(function(ingredient) { %>
+                    <li class="mb-2"><%= ingredient %></li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="instructions">
+            <h2 class="text-2xl font-bold mb-4">Instructions</h2>
+            <p class="text-lg mb-4"><%= recipe.instructions %></p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center">
+            <a href="/" class="back-button">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

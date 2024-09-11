@@ -1,0 +1,92 @@
+body {
+    font-family: 'Merriweather', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7fafc; /* Light background color */
+    background-image: url(img/i-like-food.svg);
+    height: 100vh;
+}
+
+
+
+.container{
+  height: 100%;
+}/* main.css */
+
+
+
+
+
+.taglines{
+  text-align: center;
+  
+ 
+}
+.taglines h1{
+  font-weight: 800;
+  color: black;
+  margin-bottom: 15px;
+}
+.publish{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+/* padding-top: 4px;
+  padding-left: "6px";
+  padding-right: "6px"; */
+
+}
+
+.heart {
+  font-size: 80px;
+  color: red;
+}
+footer {
+  background-color: #333;
+ 
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Basic fade in and out animation */
+@keyframes fade {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+/* Applying animation to the h1 */
+.animated-quote {
+  animation: fade 2s infinite; /* Change text every 2 seconds */
+  transition: opacity 2s ease-in-out;
+}
+
+
+
+/* Enable smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 6px; /* Rounded corners for the scrollbar handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color for the handle when hovered */
+}
+

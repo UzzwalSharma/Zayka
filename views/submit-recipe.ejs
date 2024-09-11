@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Recipe</title>
+    <link href="/css/styles.css" rel="stylesheet">
+    <style>
+        /* Spinner CSS */
+        .spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background */
+            z-index: 1000; /* Ensure it's above everything else */
+        }
+
+        .spinner {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px; /* Larger size */
+            height: 120px; /* Larger size */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Container styling */
+        body {
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(to right, #f8e1c2, #fbc687);
+            color: #4e342e;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff8e1;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Lower than spinner overlay */
+        }
+
+        h1 {
+            text-align: center;
+            color: #e64a19;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #5d4037;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #d7ccc8;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #e64a19;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #d84315;
+        }
+
+        .container div {
+            margin-bottom: 15px;
+        }
+
+        /* Home button styling */
+        .home-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #8d6e63;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .home-btn:hover {
+            background-color: #6d4c41;
+        }
+
+        h1::after {
+            content: '🍽️';
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home button linking to the homepage -->
+        <a href="/" class="home-btn">Home</a>
+
+        <h1>Submit Your Recipe</h1>
+        <!-- Ensure the form has enctype="multipart/form-data" for file upload -->
+        <form id="recipe-form" action="/recipes/submit" method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="title">Recipe Title:</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+
+            <div>
+                <label for="category">Category:</label>
+                <select name="category" id="category" required>
+                    <option value="Thai">Thai</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="American">American</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="description">Description:</label>
+                <textarea name="description" id="description" required></textarea>
+            </div>
+
+            <div>
+                <label for="ingredients">Ingredients:</label>
+                <textarea name="ingredients" id="ingredients" required></textarea>
+            </div>
+
+            <div>
+                <label for="method">Method:</label>
+                <textarea name="method" id="method" required></textarea>
+            </div>
+
+            <!-- New image upload field -->
+            <div>
+                <label for="image">Recipe Image (Optional):</label>
+                <input type="file" name="image" id="image" accept="image/*">
+            </div>
+
+            <button type="submit">Submit Recipe</button>
+        </form>
+    </div>
+
+    <!-- Spinner Overlay -->
+    <div class="spinner-overlay" id="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // Add event listener for form submission
+        const form = document.getElementById('recipe-form');
+        const spinnerOverlay = document.getElementById('spinner-overlay');
+    
+        form.addEventListener('submit', function (e) {
+            // Prevent the form from being submitted immediately
+            e.preventDefault();
+    
+            // Show the spinner
+            spinnerOverlay.style.display = 'flex';
+    
+            // Simulate form submission and hide spinner after 5 seconds
+            setTimeout(function () {
+                // Hide the spinner after 3 seconds
+                spinnerOverlay.style.display = 'none';
+                
+                // Optionally, you can redirect or show a success message
+                alert('Form successfully submitted!');
+                
+                // Redirect to the home page
+                window.location.href = '/';
+            }, 3000); // 5 seconds delay
+        });
+    </script>
+    
+
+    <p style="text-align: center; font-size:2rem; color: #555; padding: 20px 0;">
+        Made with <span style="color: red;">&#10084;&#65039;</span> by Ujjwal
+    </p>
+</body>
+</html>
